@@ -6,6 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
+
 const app = express();
 
 mongoose.connect('mongodb://localhost/todoapp');
@@ -14,6 +15,17 @@ app.set('view engine','ejs');
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true})); // for sending form data
+
+app.use(cookieSession({
+    maxAge: 24*60*60*1000,
+    keys: "SomeTempKey"
+}));
+
+//initialise passport
+app.use(passport.initialize());
+app.use(passport.session());
+const passportSetup = require('./passport/local_strategy');
+
 app.use(home_route);
 app.use('/login',login_route);
 const port = 3000;

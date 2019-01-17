@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1> TODO SIGN IN </h1>
-    <form action="/">
+    <form action="/login/signin" method="POST">
         UserName: <br>
         <input type="text" name="username" placeholder="Username"><br>
         Enter Password: <br>
@@ -19,6 +19,14 @@
     <% if(message == 'UserCreated'){ %>
         <h1> <%= message %> </h1>
         <p> Please Sign in Now. </p>
+    <% } %> 
+
+    <% if(message == 'usernameNA'){ %>
+        <p> Entered Username doesnt exist. </p>
+    <% } %> 
+
+    <% if(message == 'wrong_password'){ %>
+        <p> Wrong password entered. </p>
     <% } %> 
 </body>
 </html>

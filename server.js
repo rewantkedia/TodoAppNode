@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost/todoapp');
 app.set('view engine','ejs');
 
 app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true})); // for sending form data
 app.use(home_route);
 app.use('/login',login_route);
 const port = 3000;

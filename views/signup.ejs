@@ -3,18 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Todo Sign In</title>
+    <title>Todo Sign UP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1> Welcome to the Sign Up page of the Todo Application </h1>
-    <form action="/login/signup" method="post">
+    <h1> TODO SIGN UP </h1>
+    <form action="/login/signup" method="POST">
         UserName: <br>
         <input type="text" name="username" placeholder="Username"><br>
         Enter Password: <br>
         <input type="text" name="password" placeholder="Password"><br><br>
         <!-- confirm password remaining to add -->
-        <input type="submit" value="Submit">
-    </form> 
+        <input type="submit" name="submit" value="Submit">
+    </form>
+    <% if(message == 'UserIdExists'){ %>
+        <h1> <%= message %> </h1>
+        <p> Try a different User ID. </p>
+    <% } %> 
 </body>
 </html>
+

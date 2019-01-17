@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1> Welcome to the Sign in page of the Todo Application </h1>
+    <h1> TODO SIGN IN </h1>
     <form action="/">
         UserName: <br>
         <input type="text" name="username" placeholder="Username"><br>
@@ -15,5 +15,10 @@
         <input type="text" name="password" placeholder="Password"><br><br>
         <input type="submit" value="Submit">
     </form> 
+   
+    <% if(message == 'UserCreated'){ %>
+        <h1> <%= message %> </h1>
+        <p> Please Sign in Now. </p>
+    <% } %> 
 </body>
 </html>

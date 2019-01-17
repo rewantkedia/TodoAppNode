@@ -30,11 +30,17 @@ router.post('/signin', function(req, res, next) {
         console.log(url);
         res.redirect(url);
     }
-    req.logIn(user, function(err) {
+    req.login(user, function(err) {
         if (err) { return next(err); }
-      res.send(req.user);
-        // return res.redirect('/users/' + user.username);
+        // res.send(req.user);
+        req.session.user = req.user;
+        console.log("EXE");
+        console.log(req.user);
+        return (req,res.redirect('/users/'));
     });
+    // req.login(user,()=>{
+    //     console.log(req.user);
+    // });
     })(req, res, next);
   });
 

@@ -8,7 +8,11 @@ const UserSchema = new Schema({
         unique:true
     },
     password:{
-        type:String,
+        type:String
+    }
+    ,
+    todo:{
+        type:Array
     }
 });
 

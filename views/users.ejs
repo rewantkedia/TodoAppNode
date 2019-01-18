@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ToDos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1> TODO</h1>
+    <h1> Welcome, <%= username %> </h1>
+    <br>
+    <form action="/users/add" method="POST">
+        Add a new Todo:<br>
+        <input type="text" name="todo" id="todo" placeholder="ToDo"><br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+</body>
+</html>

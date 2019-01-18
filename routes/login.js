@@ -20,31 +20,31 @@ router.get('/signin',(req,res)=>{
 //     //handling passport
 // });
 
-// router.post('/signin', function(req, res, next) {
-//     passport.authenticate('local', function(err, user, info) {
-//     if (err) {
-//            return next(err);
-//     }
-//     if (!user) {
-//         var url = '/login/signin?message='+info.message;
-//         console.log(url);
-//         res.redirect(url);
-//     }
-//     req.logIn(user, function(err) {
-//         if(err) { return next(err); }
-//         // res.send(req.user);
-//         // req.session.user = req.user;
-//         console.log("EXE");
-//         console.log(req.user);
-//         return (req,res.redirect('/users/'));
-//     });
-//     })(req, res);
-//   });
+router.post('/signin', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+    if (err) {
+           return next(err);
+    }
+    if (!user) {
+        var url = '/login/signin?message='+info.message;
+        console.log(url);
+        return res.redirect(url);
+    }
+    req.logIn(user, function(err) {
+        if(err) { return next(err); }
+        // res.send(req.user);
+        // req.session.user = req.user;
+        console.log("EXE");
+        console.log(req.user);
+        return (req,res.redirect('/users'));
+    });
+    })(req, res);
+  });
 
-router.post('/signin',passport.authenticate('local',{
-    successRedirect: '/users',
-    failureRedirect: '/login/signin'
-}));
+// router.post('/signin',passport.authenticate('local',{
+//     successRedirect: '/users',
+//     failureRedirect: '/login/signin'
+// }));
 
 router.get('/signup',(req,res)=>{
     res.render('signup',{message:req.query.message});

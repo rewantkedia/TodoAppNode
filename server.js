@@ -6,8 +6,8 @@ const cookieSession = require('cookie-session');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('passport');
-
+const passport = require('./passport/index');
+const expressSession = require('express-session')
 const app = express();
 
 mongoose.connect('mongodb://localhost/todoapp');
@@ -17,16 +17,24 @@ app.set('view engine','ejs');
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true})); // for sending form data
 
-app.use(cookieSession({
-    maxAge: 24*60*60*1000,
-    keys: "SomeTempKey"
-}));
+// app.use(cookieSession({
+//     maxAge: 24*60*60*1000,
+//     keys: "SomeTempKey"
+// }));
+
+
+app.use(expressSession({
+    secret:'easy very easy',
+    resave:false,
+    saveUninitialized:false,
+
+}))
 
 //initialise passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-const passportSetup = require('./passport/local_strategy');
+// const passportSetup = require('./passport/local_strategy');
 
 app.use(home_route);
 app.use('/login',login_route);

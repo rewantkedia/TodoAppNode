@@ -4,8 +4,17 @@ router.get('/',(req,res)=>{
     // res.send('You are logged in as '+req.user.username);
     // console.log(req.user);
     // console.log(req.user);
-    
-    res.render('users',{username:req.user.username});
+    var todos;
+    User.findOne({username:req.user.username}).then((user)=>{
+        todos = user.todo;
+        console.log("TODOS ARE");
+        console.log(todos.length);
+        if(todos.length>0)
+        res.render('users',{username:req.user.username,todos:todos});
+        else
+        res.render('users',{username:req.user.username});
+    })
+    // res.render('users',{username:req.user.username});
 });
 router.post('/add',(req,res)=>{
     User.findOne({username:req.user.username}).then((user)=>{

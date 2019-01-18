@@ -10,6 +10,17 @@
     <h1> TODO</h1>
     <h1> Welcome, <%= username %> </h1>
     <br>
+    <%if(locals.todos){%>
+        <p> TODOS PRESENT </p>
+        <ul>
+        <% for (var i=0 ; i<todos.length ; i++) { %>
+            <li> <%= todos[i] %></l1>
+        <% } %>
+        </ul>
+    <%} else{ %>
+        <p> You dont have any todos yet. </p>
+    <%}%>
+    <br>
     <form action="/users/add" method="POST">
         Add a new Todo:<br>
         <input type="text" name="todo" id="todo" placeholder="ToDo"><br>

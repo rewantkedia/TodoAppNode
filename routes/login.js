@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/user-model');
-const passport = require('passport');
-const local_strategy = require('../passport/local_strategy');
+const passport = require('../passport/index');
+// const local_strategy = require('../passport/local_strategy');
 
 router.get('/signin',(req,res)=>{
     res.render('signin',{message:req.query.message});
@@ -20,23 +20,31 @@ router.get('/signin',(req,res)=>{
 //     //handling passport
 // });
 
-router.post('/signin', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-    if (err) {
-           return next(err);
-    }
-    if (!user) {
-        var url = '/login/signin?message='+info.message;
-        console.log(url);
-        res.redirect(url);
-    }
-    req.logIn(user, function(err) {
-        if (err) { return next(err); }
-      res.send(req.user);
-        // return res.redirect('/users/' + user.username);
-    });
-    })(req, res, next);
-  });
+// router.post('/signin', function(req, res, next) {
+//     passport.authenticate('local', function(err, user, info) {
+//     if (err) {
+//            return next(err);
+//     }
+//     if (!user) {
+//         var url = '/login/signin?message='+info.message;
+//         console.log(url);
+//         res.redirect(url);
+//     }
+//     req.logIn(user, function(err) {
+//         if(err) { return next(err); }
+//         // res.send(req.user);
+//         // req.session.user = req.user;
+//         console.log("EXE");
+//         console.log(req.user);
+//         return (req,res.redirect('/users/'));
+//     });
+//     })(req, res);
+//   });
+
+router.post('/signin',passport.authenticate('local',{
+    successRedirect: '/users',
+    failureRedirect: '/login/signin'
+}));
 
 router.get('/signup',(req,res)=>{
     res.render('signup',{message:req.query.message});

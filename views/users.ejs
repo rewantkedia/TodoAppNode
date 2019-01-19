@@ -10,9 +10,6 @@
 <script>
     function delete_function(obj)
     {
-        // console.log("Hello");
-        // console.log(obj);
-        // console.log(obj.id);
         $.ajax({
                 url: '/users/delete',
                 dataType: 'text',
@@ -23,10 +20,7 @@
                     console.log( errorThrown );
                 },
                 success: function(data, textStatus, jqXHR){
-                    // console.log(data);
-                    // console.log(JSON.parse(data));
                     data = JSON.parse(data);
-                    // console.log(data.redirect);
                     window.location.href = data.redirect
                 }
             });
@@ -41,9 +35,7 @@
         <ul>
         <% for (var i=0 ; i<todos.length ; i++) { %>
             <li> <%= todos[i] %></l1>
-            <!-- <button id="Delete" formaction="/users/delete" formmethod="POST">Delete</button> -->
             <button id= '<%= todos[i] %>' value= <%= todos[i] %> onclick = "delete_function(this)"> Delete </button>
-            <!-- passing todos[i] as a parameter of delete_function confusion -->
         <% } %>
         </ul>
     <%} else{ %>

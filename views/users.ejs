@@ -5,7 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ToDos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
+<script>
+    function delete_function(obj)
+    {
+        // console.log("Hello");
+        // console.log(obj);
+        // console.log(obj.id);
+        $.ajax({
+                url: '/users/delete',
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: {message: obj.id},
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                },
+                success: function(data, textStatus, jqXHR){
+                    // console.log(data);
+                    // console.log(JSON.parse(data));
+                    data = JSON.parse(data);
+                    // console.log(data.redirect);
+                    window.location.href = data.redirect
+                }
+            });
+    }
+</script>
 <body>
     <h1> TODO</h1>
     <h1> Welcome, <%= username %> </h1>
@@ -15,6 +41,9 @@
         <ul>
         <% for (var i=0 ; i<todos.length ; i++) { %>
             <li> <%= todos[i] %></l1>
+            <!-- <button id="Delete" formaction="/users/delete" formmethod="POST">Delete</button> -->
+            <button id= '<%= todos[i] %>' value= <%= todos[i] %> onclick = "delete_function(this)"> Delete </button>
+            <!-- passing todos[i] as a parameter of delete_function confusion -->
         <% } %>
         </ul>
     <%} else{ %>

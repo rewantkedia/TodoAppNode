@@ -24,7 +24,7 @@ router.post('/add',(req,res)=>{
         console.log(todos);
         console.log("HERE");
         console.log(user);
-        user.update({$push:{todo:todos}},{safe: true, upsert: true},function(err,doc){
+        user.update({$addToSet:{todo:todos}},{safe: true, upsert: true},function(err,doc){
             if(err)
             console.log(err);
             if(doc)
@@ -37,5 +37,22 @@ router.post('/add',(req,res)=>{
         // user.save(done);
     })
 })
-
+router.post('/delete',(req,res)=>{
+    console.log(req.body.message);
+    // console.log('HERE');
+    User.findOne({username:req.user.username}).then((user)=>{
+        console.log(user);
+        user.update({$pull:{todo:req.body.message}},{safe: true, upsert: true},function(err,doc){
+            if(err)
+            console.log(err);
+            if(doc)
+            {
+                console.log("DELETED");
+                console.log(doc);
+                res.send({redirect:'/users'});
+                // return res.redirect('/users');
+            }
+        });
+    })
+})
 module.exports = router;
